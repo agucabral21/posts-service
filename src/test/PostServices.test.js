@@ -14,10 +14,11 @@ beforeEach(async () => {
 });
 
 afterAll(async () => {
+  await Post.deleteMany({});
   await db.disconnect();
 });
 
-describe('Test for Post Endpoints.', () => {
+describe('Test for createPost Service.', () => {
   test('.create() -> should create post', async () => {
     let data = {
       title: 'test title',
@@ -45,20 +46,8 @@ describe('Test for Post Endpoints.', () => {
       expect(err.data.code).toBe(11000);
     }
   });
-
-  test('.create() -> should throw BaseError for invalid post, title too large', async () => {
-    let data = {
-      title: 'test title too large for saving in database',
-      body: 'test body',
-    };
-    try {
-      const createPost = await PostService.create(data);
-    } catch (err) {
-      expect(err.name).toBe('mongodbError');
-      expect(err.data._message).toBe('Post validation failed');
-    }
-  });
-
+});
+describe('Test for getPost Service.', () => {
   test('.get() -> should return all posts', async () => {
     let post1 = await Post.create({ title: 'test title 1', body: 'test body1' });
     let post2 = await Post.create({ title: 'test title 2', body: 'test body2' });
@@ -75,7 +64,8 @@ describe('Test for Post Endpoints.', () => {
     result = await PostService.find();
     expect(result).toBe(false);
   });
-
+});
+describe('Test for getPostById Service.', () => {
   test('.getById() -> should return post by id', async () => {
     let data = {
       title: 'test ',
@@ -92,7 +82,9 @@ describe('Test for Post Endpoints.', () => {
     let result = await PostService.findById(id);
     expect(result).toBeFalsy();
   });
+});
 
+describe('Test for deletePost Service.', () => {
   test('.delete() -> should delete post by id', async () => {
     let data = {
       title: 'test ',
@@ -106,7 +98,9 @@ describe('Test for Post Endpoints.', () => {
     find = await PostService.find();
     expect(find).toBe(false);
   });
+});
 
+describe('Test for updatePost Service.', () => {
   test('.update() -> should update post by id', async () => {
     let data = {
       title: 'test ',
@@ -128,25 +122,26 @@ describe('Test for Post Endpoints.', () => {
     expect(update.title).toBe(updateData.title);
   });
 
-  test('.update() -> should throw error for invalid field in update post by id', async () => {
+  test('.update() -> should throw error for unique restriction in title', async () => {
     let data = {
       title: 'test ',
       body: 'test body',
     };
     let updateData = {
-      title: 'test updated toooo long for title',
+      title: 'test two',
       body: 'test body updated',
     };
     let post = await Post.create(data);
+    let post2 = await Post.create(updateData);
     let find = await PostService.find();
 
-    expect(find.length).toBe(1);
+    expect(find.length).toBe(2);
     expect(find[0].title).toBe(data.title);
     try {
       let update = await PostService.update({ _id: post._id }, updateData);
     } catch (err) {
       expect(err.name).toBe('mongodbError');
-      expect(err.data._message).toBe('Post validation failed');
+      expect(err.data.codeName).toBe('DuplicateKey');
     }
   });
 });

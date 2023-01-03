@@ -1,3 +1,6 @@
+const dotenv = require('dotenv');
+dotenv.config({ path: '.env.test' });
+
 const request = require('supertest');
 const { app } = require('../config');
 
@@ -5,8 +8,11 @@ describe('Test status endpoint.', () => {
   test('It should show service status.', (done) => {
     request(app)
       .get('/wrongUrl')
+      .set('Accept', 'application/json')
+      .set('Authorization', `Bearer ${process.env.ADMIN_TOKEN}`)
       .then((response) => {
         expect(response.statusCode).toBe(404);
+        expect(response.body.message).toBe(`Can't find /wrongUrl on this server!`);
         done();
       });
   });

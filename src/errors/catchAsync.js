@@ -2,8 +2,6 @@ const { errorResponse } = require('../utils/responses');
 
 const catchAsync = (fn) => (req, res, next) => {
   fn(req, res, next).catch((err) => {
-    console.log(err.data);
-
     let status = 500;
     let err_body = { message: err.message, data: err };
 

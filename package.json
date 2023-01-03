@@ -4,15 +4,16 @@
   "description": "Tarea para Evaluacion Tecnica de Neocoast",
   "main": "index.js",
   "scripts": {
-    "start":"nodemon src/server.js",
+    "start": "nodemon src/server.js",
     "test": "jest -i --testTimeout=10000",
-    "coverage": "jest --testTimeout=10000 --coverage"
+    "coverage": "jest -i --testTimeout=10000 --coverage"
   },
   "author": "Agustin Cabral",
   "license": "ISC",
   "dependencies": {
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
     "mongoose": "^6.8.2"
   },
   "devDependencies": {

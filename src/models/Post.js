@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const schema = mongoose.Schema(
   {
-    title: { type: String, maxLength: 20, unique: true },
+    title: { type: String, unique: true },
     body: { type: String },
   },
   {

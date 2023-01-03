@@ -3,10 +3,12 @@ const { okResponse, errorResponse } = require('../utils/responses');
 
 class PostController {
   static async find(req, res, next) {
-    const posts = await PostService.find({});
+    let posts = await PostService.find();
+
     if (!posts) {
-      return res.status(404).json(errorResponse({ message: 'Post not found.' }));
+      return res.status(404).json(errorResponse({ message: 'No Post found.' }));
     }
+
     return res.status(200).json(okResponse(posts));
   }
 
@@ -14,7 +16,7 @@ class PostController {
     const id = req.params.id;
     const post = await PostService.findById(id);
     if (!post) {
-      return res.status(404).json(errorResponse({ message: 'Post not found.' }));
+      return res.status(404).json(errorResponse({ message: 'No Post found.' }));
     }
     return res.status(200).json(okResponse(post));
   }
@@ -31,7 +33,7 @@ class PostController {
     const updatedPost = await PostService.update(id, { title, body });
 
     if (!updatedPost) {
-      return res.status(404).json(errorResponse({ message: 'Post not found.' }));
+      return res.status(404).json(errorResponse({ message: 'No Post found.' }));
     }
     return res.status(200).send(okResponse(updatedPost));
   }
