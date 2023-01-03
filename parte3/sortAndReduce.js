@@ -17,7 +17,7 @@ let groupByDayMonth = (array) => {
   }, {});
 };
 
-let sortAndReduce = (array) => {
+let sortAndReduce = async (array) => {
   let sorted = sortArrayByDate(array);
   let grouped = groupByDayMonth(sorted);
   return grouped;
