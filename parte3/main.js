@@ -1,20 +1,17 @@
-const { data } = require('./cases');
+const { case1 } = require('./cases');
 const sortAndReduce = require('./sortAndReduce');
 const mergeSortAndGroup = require('./mergeSortAndGroup');
 
 async function main() {
-  console.time('Execution Time sortAndReduceResult');
+  console.time('Time sortAndReduceResult');
+  let sortAndReduceResult = await sortAndReduce(case1);
+  console.timeEnd('Time sortAndReduceResult');
 
-  let sortAndReduceResult = await sortAndReduce(data);
+  console.time('Time mergeSortAndGroupResult');
+  let mergeSortAndGroupResult = await mergeSortAndGroup(case1);
+  console.timeEnd('Time mergeSortAndGroupResult');
 
-  console.timeEnd('Execution Time sortAndReduceResult');
-
-  console.time('Execution Time mergeSortAndGroupResult');
-
-  let mergeSortAndGroupResult = await mergeSortAndGroup(data);
-
-  console.timeEnd('Execution Time mergeSortAndGroupResult');
-
+  //Muestro resultados
   console.log(sortAndReduceResult);
   console.log(mergeSortAndGroupResult);
 }

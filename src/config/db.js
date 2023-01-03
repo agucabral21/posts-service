@@ -2,8 +2,7 @@ const mongoose = require('mongoose');
 
 const connect = () =>
   new Promise((resolve, reject) => {
-
-    console.log("Connecting to db...")
+    console.log('Connecting to db...');
 
     const host = process.env.DB_HOST || 'localhost';
     const port = process.env.DB_PORT ? `:${process.env.DB_PORT}` : '';
@@ -23,7 +22,7 @@ const connect = () =>
     mongoose
       .connect(connectionString, options)
       .then(() => {
-        console.log("DB connection achieved!")
+        console.log('DB connection achieved!');
         resolve();
       })
       .catch((err) => {

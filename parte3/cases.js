@@ -1,12 +1,4 @@
-const data = [
-  {
-    date: new Date('1995-01-02T03:00:00.000Z'),
-    items: [
-      {
-        value: 'EXHIBIT A2',
-      },
-    ],
-  },
+const case1 = [
   {
     date: new Date('1997-10-13T04:00:00.000Z'),
     items: [
@@ -72,6 +64,14 @@ const data = [
     ],
   },
   {
+    date: new Date('1995-01-02T03:00:00.000Z'),
+    items: [
+      {
+        value: 'EXHIBIT A2',
+      },
+    ],
+  },
+  {
     date: new Date('1997-12-23T03:00:00.000Z'),
     items: [
       {
@@ -80,4 +80,4 @@ const data = [
     ],
   },
 ];
-module.exports = { data };
+module.exports = { case1 };
